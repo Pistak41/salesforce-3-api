@@ -4,7 +4,9 @@ const app = express()
 
 app.use([json()]);
 
-app.get('/', ({ query: { fecha, products } }, res) => {
+app.post('/', (req, res) => {
+    const { fecha, products } = req.body;
+
     if (fecha) {
         const formattedDate = new Date(fecha);
 
