@@ -4,15 +4,15 @@ const app = express()
 
 app.use([json()]);
 
-app.get('/', ({ query: { fecha, ammount = 1 } }, res) => {
+app.get('/', ({ query: { fecha, products } }, res) => {
     if (fecha) {
         const formattedDate = new Date(fecha);
 
         if (isNaN(formattedDate)) return res.status(400).json({ error: 'Fecha invalida, se requiere una fecha con formato yyyy-mm-dd' })
+        if (!Array.isArray(products)) return res.status(400).json({ error: 'Productos invalidos, se requiere un array de productos' })
 
         res.json({
-            price: formattedDate.getFullYear() * (formattedDate.getMonth() + 1) * (formattedDate.getDay() + 1) * 12 * ammount,
-            ammount
+            price: formattedDate.getFullYear() * (formattedDate.getMonth() + 1) * (formattedDate.getDay() + 1) * 12 * products.length
         })
     } else {
         res.status(400).json({ error: 'Fecha requerida' })
