@@ -5,6 +5,7 @@ const app = express()
 app.use([json()]);
 
 app.post('/', (req, res) => {
+    console.log("[body]",req.body);
     const { fecha, products } = req.body;
 
     if (fecha) {
